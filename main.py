@@ -97,8 +97,8 @@ class Threeinarow(BoardGame):
         
         
     def finished(self) -> bool:
-        if self.firstcond() and self.secondcond() and self.thirdcond() and self.fourthcond(): #Controllo 4 condizioni
-            return True
+        return self.firstcond() and self.secondcond() and self.thirdcond() and self.fourthcond() #Controllo 4 condizioni
+           
             
             
             
