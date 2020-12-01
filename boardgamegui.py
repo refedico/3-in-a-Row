@@ -14,6 +14,9 @@ class BoardGameGui:
     def tick(self):
         if g2d.key_pressed("LeftButton"):
             self._downtime = time()
+        elif g2d.key_pressed("a"):
+            self._game.automatism()
+            self.update_buttons()
         elif g2d.key_released("LeftButton"):
             mouse = g2d.mouse_position()
             x, y = mouse[0] // W, mouse[1] // H
@@ -34,6 +37,12 @@ class BoardGameGui:
         for y in range(rows):
             for x in range(cols):
                 value = self._game.value_at(x, y)
+                if value == '1': #Settaggio colori
+                    g2d.set_color((200,200,200))
+                    g2d.fill_rect((x*40, y*40, 39, 39))
+                elif value == '2':
+                    g2d.set_color((0,0,0))
+                    g2d.fill_rect((x*40, y*40, 39, 39))
                 center = x * W + W//2, y * H + H//2
                 g2d.draw_text_centered(value, center, H//2)
         g2d.update_canvas()
