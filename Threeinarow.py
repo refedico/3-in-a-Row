@@ -57,11 +57,27 @@ class Threeinarow(BoardGame):
             if cont0 == 3 and cont2 == 0:
                 self._board[list1[0]] = 2
                 self._board[list1[1]] = 2
-                self._board[list1[2]] = 2
-            elif cont2 == 3 and cont0 == 0:
+                self._board[list1[2]] = 2 
+
+            elif cont0 == 3 and cont2 == 1:
+                self._board[list1[0]] = 2
+                self._board[list1[1]] = 2
+
+            elif cont0 == 3 and cont2 == 2:
+                self._board[list1[0]] = 2
+
+            elif cont0 == 0 and cont2 == 3:
                 self._board[list1[0]] = 0
                 self._board[list1[1]] = 0
                 self._board[list1[2]] = 0
+
+            elif cont0 == 1 and cont2 == 3:
+                self._board[list1[0]] = 0
+                self._board[list1[1]] = 0
+
+            elif cont0 == 2 and cont2 == 3:
+                self._board[list1[0]] = 0
+
 
         list2 = []
         for z in range(self._w): #Automatismo Righe
@@ -77,17 +93,32 @@ class Threeinarow(BoardGame):
             if cont0 == 3 and cont2 == 0:
                 self._board[list2[0]] = 2
                 self._board[list2[1]] = 2
-                self._board[list2[2]] = 2
-            elif cont2 == 3 and cont0 == 0:
+                self._board[list2[2]] = 2 
+
+            elif cont0 == 3 and cont2 == 1:
+                self._board[list2[0]] = 2
+                self._board[list2[1]] = 2
+
+            elif cont0 == 3 and cont2 == 2:
+                self._board[list2[0]] = 2
+
+            elif cont0 == 0 and cont2 == 3:
                 self._board[list2[0]] = 0
                 self._board[list2[1]] = 0
                 self._board[list2[2]] = 0
 
+            elif cont0 == 1 and cont2 == 3:
+                self._board[list2[0]] = 0
+                self._board[list2[1]] = 0
 
-        for q in range(self._h):  #Automatismo 2 Celle Contigue
+            elif cont0 == 2 and cont2 == 3:
+                self._board[list2[0]] = 0
+
+
+        for q in range(self._h):  #Automatismo 2 Celle Contigue Righe
             b, w, h = self._board, self._w, self._h
             for s in range(w):
-                if s < (h - 1):
+                if s < (h - 2):
                     totale = b[q*w+s] + b[q*w+s+1]
                     if totale == 0: # se 0 + 0 = 0 o se 2 + 2 = 4
                         b[q*w+s-1] = 2
@@ -96,7 +127,35 @@ class Threeinarow(BoardGame):
                         b[q*w+s-1] = 0
                         b[q*w+s+2] = 0
 
+        for t in range(self._h):  #Automatismo 2 Celle Contigue Colonne
+            b, w, h = self._board, self._w, self._h
+            for c in range(w):
+                if ((c*w+t-6) not in self._fisse) and ((c*w+t+12) not in self._fisse):                   
+                    if (c*w+t) < 35 and (c*w+t+6) < 35 and (c*w+t)>0 and (c*w+t+6)>0:
+                        totale = b[c*w+t] + b[c*w+t+6]
+                        if  (c*w+t+12) > 35:
+                            if  b[c*w+t] == 0:
+                                 b[c*w+t-6] = 2
+                            else:
+                                 b[c*w+t-6] = 0
+                        elif  (c*w+t-6) <0:
+                            if  b[c*w+t] == 0:
+                                 b[c*w+t+12] = 2
+                            else:
+                                 b[c*w+t-6] = 0
 
+                        if totale == 0: # se 0 + 0 = 0 o se 2 + 2 = 4
+                            if  (c*w+t+12) <= 35 and (c*w+t-6)>0:
+                                b[c*w+t+12] = 2
+                                b[c*w+t-6] = 2
+                        elif totale == 4:
+                            if  (c*w+t+12) <= 35 and (c*w+t-6)>0:
+                                b[c*w+t+12] = 0
+                                b[c*w+t-6] = 0
+
+
+    def unsolvable(self) -> bool:
+        pass
 
     def firstcond(self) -> bool:
         contgr = 0
