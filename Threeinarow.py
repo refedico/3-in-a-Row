@@ -24,12 +24,6 @@ class Threeinarow(BoardGame):
     def value_at(self, x: int, y: int) -> str:
         b, w, h = self._board, self._w, self._h
         if 0 <= y < h and 0 <= x < w and b[y * w + x] > 0:
-            if b[y * self._w + x] == 1: #Settaggio colori
-                g2d.set_color((200,200,200))
-                g2d.fill_rect((x*40, y*40, 39, 39))
-            elif b[y * self._w + x] == 2:
-                g2d.set_color((0,0,0))
-                g2d.fill_rect((x*40, y*40, 39, 39))
             return str(b[y * w + x])
         return ""
         
@@ -44,16 +38,15 @@ class Threeinarow(BoardGame):
                     b[y * self._w + x] = 2
                 elif b[y * self._w + x] == 2:
                     b[y * self._w + x] = 0
-        if g2d.key_pressed("w"):
-            self.automatism()
-                                    
+
     def flag_at(self, x: int, y: int):
         pass
 
-    def automatism(self):
+    def automatism(self):      
         list1 = []
-        for k in range(self._w):
+        for k in range(self._w): #Automatismo Colonne
             cont0, cont2 = 0, 0
+            list1 = []
             for p in range(self._h):
                 if self._board[p * self._h + k] == 0:
                     cont0 += 1
@@ -63,12 +56,47 @@ class Threeinarow(BoardGame):
                     cont2 += 1    
             if cont0 == 3 and cont2 == 0:
                 self._board[list1[0]] = 2
-                self._board[lista1[1]] = 2
-                self._board[lista1[2]] = 2
+                self._board[list1[1]] = 2
+                self._board[list1[2]] = 2
             elif cont2 == 3 and cont0 == 0:
                 self._board[list1[0]] = 0
-                self._board[lista1[1]] = 0
-                self._board[lista1[2]] = 0
+                self._board[list1[1]] = 0
+                self._board[list1[2]] = 0
+
+        list2 = []
+        for z in range(self._w): #Automatismo Righe
+            cont0, cont2 = 0, 0
+            list2 = []
+            for w in range(self._h):
+                if self._board[z * self._h + w] == 0:
+                    cont0 += 1
+                elif self._board[z * self._h + w] == 1:
+                    list2.append(z * self._h + w)
+                elif self._board[z * self._h + w] == 2:
+                    cont2 += 1    
+            if cont0 == 3 and cont2 == 0:
+                self._board[list2[0]] = 2
+                self._board[list2[1]] = 2
+                self._board[list2[2]] = 2
+            elif cont2 == 3 and cont0 == 0:
+                self._board[list2[0]] = 0
+                self._board[list2[1]] = 0
+                self._board[list2[2]] = 0
+
+
+        for q in range(self._h):  #Automatismo 2 Celle Contigue
+            b, w, h = self._board, self._w, self._h
+            for s in range(w):
+                if s < (h - 1):
+                    totale = b[q*w+s] + b[q*w+s+1]
+                    if totale == 0: # se 0 + 0 = 0 o se 2 + 2 = 4
+                        b[q*w+s-1] = 2
+                        b[q*w+s+2] = 2
+                    elif totale == 4:
+                        b[q*w+s-1] = 0
+                        b[q*w+s+2] = 0
+
+
 
     def firstcond(self) -> bool:
         contgr = 0
