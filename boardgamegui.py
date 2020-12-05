@@ -17,6 +17,11 @@ class BoardGameGui:
         elif g2d.key_pressed("a"):
             self._game.automatism()
             self.update_buttons()
+        elif g2d.key_pressed("h"):
+            self._game.hint()
+            self.update_buttons()
+        elif g2d.key_pressed("u"):
+            print(self._game.unsolvable())
         elif g2d.key_released("LeftButton"):
             mouse = g2d.mouse_position()
             x, y = mouse[0] // W, mouse[1] // H
