@@ -8,12 +8,15 @@ class Threeinarow(BoardGame):
     def __init__(self, w: int, h: int):
         self._w, self._h = w, h
         self._board = [1] * self._w * self._h  #0: Bianco || 1: Grigio || 2: Nero
+        self._fisse = []
 
         with open("config.csv", "r") as f:
             first_line = f.readline()
-            print(first_line)
+            first_line = first_line.split(",")
+            for i in first_line:
+                self._fisse.append(int(i))
 
-        self._fisse = (7, 14, 17, 21, 25, 28, 30, 31, 33 ) # Celle fisse
+        self._fisse = [7, 14, 17, 21, 25, 28, 30, 31, 33 ] # Celle fisse
         for i in self._fisse:
             self._board[i] = choice((0,2)) #Valori Casuali assunti dalle celle fisse
 
@@ -94,29 +97,13 @@ class Threeinarow(BoardGame):
                     list1.append(p * self._h + k)
                 elif self._board[p * self._h + k] == 2:
                     cont2 += 1    
-            if cont0 == 3 and cont2 == 0:
-                self._board[list1[0]] = 2
-                self._board[list1[1]] = 2
-                self._board[list1[2]] = 2 
+            if cont0 == (self._h / 2):
+                for b in range(len(list1)):
+                    self._board[list1[b]] = 2
 
-            elif cont0 == 3 and cont2 == 1:
-                self._board[list1[0]] = 2
-                self._board[list1[1]] = 2
-
-            elif cont0 == 3 and cont2 == 2:
-                self._board[list1[0]] = 2
-
-            elif cont0 == 0 and cont2 == 3:
-                self._board[list1[0]] = 0
-                self._board[list1[1]] = 0
-                self._board[list1[2]] = 0
-
-            elif cont0 == 1 and cont2 == 3:
-                self._board[list1[0]] = 0
-                self._board[list1[1]] = 0
-
-            elif cont0 == 2 and cont2 == 3:
-                self._board[list1[0]] = 0
+            if cont2 == (self._h / 2):
+                for b in range(len(list1)):
+                    self._board[list1[b]] = 0
 
 
         list2 = []
@@ -130,30 +117,13 @@ class Threeinarow(BoardGame):
                     list2.append(z * self._h + w)
                 elif self._board[z * self._h + w] == 2:
                     cont2 += 1    
-            if cont0 == 3 and cont2 == 0:
-                self._board[list2[0]] = 2
-                self._board[list2[1]] = 2
-                self._board[list2[2]] = 2 
+            if cont0 == (self._h / 2):
+                for a in range(len(list2)):
+                    self._board[list2[a]] = 2
 
-            elif cont0 == 3 and cont2 == 1:
-                self._board[list2[0]] = 2
-                self._board[list2[1]] = 2
-
-            elif cont0 == 3 and cont2 == 2:
-                self._board[list2[0]] = 2
-
-            elif cont0 == 0 and cont2 == 3:
-                self._board[list2[0]] = 0
-                self._board[list2[1]] = 0
-                self._board[list2[2]] = 0
-
-            elif cont0 == 1 and cont2 == 3:
-                self._board[list2[0]] = 0
-                self._board[list2[1]] = 0
-
-            elif cont0 == 2 and cont2 == 3:
-                self._board[list2[0]] = 0
-
+            if cont2 == (self._h / 2):
+                for a in range(len(list2)):
+                    self._board[list2[a]] = 0
 
 
 
