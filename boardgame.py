@@ -6,6 +6,8 @@ class BoardGame:
     def flag_at(self, x: int, y: int): abstract()
     def value_at(self, x: int, y: int) -> str: abstract()
     def automatism(self): abstract()
+    def hint(self): abstract()
+    def unsolvable(self): abstract()
     def cols(self) -> int: abstract()
     def rows(self) -> int: abstract()
     def finished(self) -> bool: abstract()
